@@ -10,7 +10,7 @@ struct Node {
     explicit Node(int d) : next(nullptr), data(d) {}
 };
 
-void qsort(Node * &first) {
+void qsort(Node *& first) {
     if (first == nullptr || first->next == nullptr) {
         return;
     }
@@ -96,7 +96,7 @@ int main() {
 
     for (size_t i = 0; i != n; ++i) {
         Node * tmp = new Node();
-        std::cin >> (tmp->data);
+        std::cin >> tmp->data;
 
         if (first == nullptr) {
             cur = first = tmp;
@@ -110,7 +110,7 @@ int main() {
     cur = first;
 
     while (cur != nullptr) {
-        std::cout << (cur->data) << " ";
+        std::cout << cur->data << " ";
 
         Node * tmp = cur;
         cur = cur->next;
