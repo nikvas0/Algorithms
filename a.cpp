@@ -76,7 +76,6 @@ void qsort(Node *& first) {
     qsort(left);
     qsort(right);
 
-    // TODO:concatenate three lists to one
     first = left;
     cur = left;
     while (cur != nullptr && cur->next != nullptr) {
