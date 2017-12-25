@@ -16,22 +16,10 @@ void qsort(Node *& first) {
     }
 
     int sz = 0;
-    int prev = first->data;
-    bool sorted = true;
     Node * cur = first;
     while (cur != nullptr) {
         ++sz;
-
-        if (prev > cur->data) {
-            sorted = false;
-        }
-        prev = cur->data;
-
         cur = cur->next;
-    }
-
-    if (sorted) {
-        return;
     }
 
     int m = rand() % sz;
@@ -47,6 +35,8 @@ void qsort(Node *& first) {
     Node * curLeft = nullptr;
     Node * right = nullptr;
     Node * curRight = nullptr;
+    Node * mid = nullptr;
+    Node * curMid = nullptr;
 
     while (first != nullptr) {
         if (first->data < m) {
@@ -55,13 +45,20 @@ void qsort(Node *& first) {
             } else {
                 curLeft = curLeft->next = first;
             }
-        } else {
+        } else if (first->data > m) {
             if (curRight == nullptr) {
                 right = curRight = first;
             } else {
                 curRight = curRight->next = first;
             }
+        } else {
+            if (curMid == nullptr) {
+                mid = curMid = first;
+            } else {
+                curMid = curMid->next = first;
+            }
         }
+        
         first = first->next;
 
         if (curLeft != nullptr) {
@@ -70,21 +67,31 @@ void qsort(Node *& first) {
         if (curRight != nullptr) {
             curRight->next = nullptr;
         }
+        if (curMid != nullptr) {
+            curMid->next = nullptr;
+        }
     }
-    curLeft = curRight = nullptr;
+    curLeft = curRight = curMid = nullptr;
 
     qsort(left);
     qsort(right);
 
-    if (left != nullptr) {
-        first = left;
-        while (left->next != nullptr) {
-            left = left->next;
-        }
-        left->next = right;
-    } else {
-        first = right;
+    // TODO:concatenate three lists to one
+    first = left;
+    cur = left;
+    while (cur != nullptr && cur->next != nullptr) {
+        cur = cur->next;
     }
+    if (cur == nullptr) {
+        first = mid;
+        cur = mid;
+    } else {
+        cur = cur->next = mid;
+    }
+    while (cur != nullptr && cur->next != nullptr) {
+        cur = cur->next;
+    }
+    cur->next = right;
 }
 
 int main() {
