@@ -32,14 +32,7 @@ public:
     }
 
     explicit HashMap(std::initializer_list<std::pair<KeyType, ValueType> > l, Hash hasher = Hash())
-    : lst()
-    , sz(0)
-    , table(TABLESIZE, {lst.end(), 0})
-    , hasher(hasher) {
-        for (const auto& elem : l) {
-            insert(elem);
-        }
-    }
+    : HashMap(l.begin(), l.end(), hasher) {}
 
     HashMap(const HashMap<KeyType, ValueType, Hash>& hm)
     : lst()
@@ -56,25 +49,16 @@ public:
     , sz(0)
     , table(TABLESIZE, {lst.end(), 0})
     , hasher(Hash()) {
-        std::swap(table, hm.table);
-        std::swap(lst, hm.lst);
-        std::swap(sz, hm.sz);
-        std::swap(hasher, hm.hasher);
+        swap(hm);
     }
 
     HashMap<KeyType, ValueType, Hash>& operator=(HashMap<KeyType, ValueType, Hash> rhs) {
-        std::swap(table, rhs.table);
-        std::swap(lst, rhs.lst);
-        std::swap(sz, rhs.sz);
-        std::swap(hasher, rhs.hasher);
+        swap(rhs);
         return *this;
     }
 
     HashMap<KeyType, ValueType, Hash>& operator=(HashMap<KeyType, ValueType, Hash>&& rhs) {
-        std::swap(table, rhs.table);
-        std::swap(lst, rhs.lst);
-        std::swap(sz, rhs.sz);
-        std::swap(hasher, rhs.hasher);
+        swap(rhs);
         return *this;
     }
 
@@ -131,7 +115,7 @@ public:
     }
 
     iterator insert(const std::pair<KeyType, ValueType>& p) {
-        if ((sz * 2) > table.size()) {
+        if (sz * 2 > table.size()) {
             rebuild(table.size() * 2);
         }
         const KeyType & key = p.first;
@@ -220,8 +204,15 @@ public:
         sz = 0;
     }
 
+    void swap(HashMap& other) {
+        std::swap(table, other.table);
+        std::swap(lst, other.lst);
+        std::swap(sz, other.sz);
+        std::swap(hasher, other.hasher);
+    }
+
 private:
-    std::list<std::pair<const KeyType, ValueType> > lst;
+    std::list<std::pair<const KeyType, ValueType>> lst;
     size_t sz;
     std::vector<std::pair<iterator, size_t>> table;
     Hash hasher;
