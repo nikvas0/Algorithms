@@ -7,4 +7,5 @@
 ## С++ course
 * myVector.h Вектор.
 * polynomialMap.h и polynomialVector.h Многочлены, реализованные на std::map/std::vector.
+* myUniquePtr.h
 * matrix.h Матрица
