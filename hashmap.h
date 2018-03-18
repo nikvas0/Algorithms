@@ -1,15 +1,13 @@
-#include <functional>
-#include <iostream>
 #include <list>
 #include <numeric>
 #include <stdexcept>
 #include <vector>
 
-const size_t TABLESIZE = 2;
 
 template<class KeyType, class ValueType, class Hash = std::hash<KeyType> > 
 class HashMap {
 public:
+    const size_t TABLESIZE = 2;
     using iterator = typename std::list<std::pair<const KeyType, ValueType> >::iterator;
     using const_iterator = typename std::list<std::pair<const KeyType, ValueType> >::const_iterator;
 
