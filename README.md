@@ -1,4 +1,4 @@
-# This is repository for code review. (I will make it private at summer.)
+# This is repository for code review. (I will delete it at summer.)
 
 ## Algorithms course
 * hashmap.h Хеш-таблица.
