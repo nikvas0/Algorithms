@@ -3,6 +3,7 @@
 ## Algorithms course
 * hashmap.h Хеш-таблица.
 * listWithSort.cpp Список и сортировка слиянием для него.
+* minCostMaxFlow.cpp
 
 ## С++ course
 * myVector.h Вектор.
